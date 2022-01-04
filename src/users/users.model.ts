@@ -1,12 +1,8 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
-
-interface IUserCreationAttrs {
-  email: string;
-  password: string;
-}
+import { IUser } from './users.interface';
 
 @Table({ tableName: 'users' })
-export class User extends Model<User, IUserCreationAttrs> {
+export class User extends Model<User, IUser> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -15,6 +11,12 @@ export class User extends Model<User, IUserCreationAttrs> {
   })
   id: number;
 
+  @Column({ type: DataType.STRING, allowNull: false })
+  name: string;
+
+  @Column({ type: DataType.STRING, unique: true, allowNull: false })
+  tel: string;
+
   @Column({ type: DataType.STRING, unique: true, allowNull: false })
   email: string;
 
@@ -22,5 +24,5 @@ export class User extends Model<User, IUserCreationAttrs> {
   password: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  role: string;
+  role: 'Admin' | 'User';
 }

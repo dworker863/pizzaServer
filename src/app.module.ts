@@ -2,13 +2,12 @@ import { User } from './users/users.model';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
-import { UsersService } from './users/users.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  controllers: [UsersController],
-  providers: [UsersService],
+  controllers: [],
+  providers: [],
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -24,6 +23,7 @@ import { UsersService } from './users/users.service';
       autoLoadModels: true,
     }),
     UsersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
