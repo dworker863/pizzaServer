@@ -19,7 +19,8 @@ export class AuthService {
 
   async login(userDto: CreateUserDto) {
     const user = await this.validateUser(userDto);
-    return this.generateToken(user);
+    const token = await this.generateToken(user);
+    return { ...user, token };
   }
 
   async registration(userDto: CreateUserDto) {
@@ -40,15 +41,17 @@ export class AuthService {
     }
 
     const hashPassword = await bcrypt.hash(userDto.password, 5);
-    const user = this.usersService.createUser({
+    const user = await this.usersService.createUser({
       ...userDto,
       password: hashPassword,
     });
-    return user;
+
+    const token = await this.generateToken(user);
+    return { ...user, token };
   }
 
   private async validateUser(userDto: CreateUserDto) {
-    const user = await this.usersService.getUserByEmail(userDto.email);
+    const user = await this.usersService.getUserByTel(userDto.tel);
     const passwordEquals = await bcrypt.compare(
       userDto.password,
       user.password,
@@ -56,7 +59,9 @@ export class AuthService {
     if (user && passwordEquals) {
       return user;
     }
-    throw new UnauthorizedException({ message: 'Неверный email или пароль' });
+    throw new UnauthorizedException({
+      message: 'Неверный номер телефона или пароль',
+    });
   }
 
   private async generateToken(user: User) {
@@ -68,8 +73,6 @@ export class AuthService {
       role: user.role,
     };
 
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    return this.jwtService.sign(payload);
   }
 }
