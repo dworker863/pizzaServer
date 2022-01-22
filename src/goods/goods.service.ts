@@ -26,8 +26,12 @@ export class GoodsService {
 
   async getAllGoods() {
     const pizzas = await this.pizzaRepository.findAll();
+    const snacks = await this.snackRepository.findAll();
     const salads = await this.saladRepository.findAll();
-    return { pizzas, salads };
+    const desserts = await this.dessertRepository.findAll();
+    // const drinks = await this.drinkRepository.findAll();
+    const hots = await this.hotRepository.findAll();
+    return { pizzas, snacks, salads, desserts, hots };
   }
 
   async createPizza(dto: CreatePizzaDto) {
