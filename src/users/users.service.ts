@@ -1,8 +1,7 @@
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './users.model';
+import { User } from './models/users.model';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { IUser } from './users.interface';
 
 @Injectable()
 export class UsersService {

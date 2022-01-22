@@ -1,5 +1,5 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
-import { IUser } from './users.interface';
+import { IUser } from '../interfaces/users.interface';
 
 @Table({ tableName: 'users' })
 export class User extends Model<User, IUser> {

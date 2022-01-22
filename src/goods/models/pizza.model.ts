@@ -1,11 +1,5 @@
 import { Column, DataType, Table, Model } from 'sequelize-typescript';
-
-interface IPizza {
-  name: string;
-  description: string;
-  size: string;
-  price: string;
-}
+import { IPizza } from '../interfaces/pizza.interface';
 
 @Table({ tableName: 'pizzas' })
 export class Pizza extends Model<Pizza, IPizza> {
@@ -30,5 +24,5 @@ export class Pizza extends Model<Pizza, IPizza> {
   price: string;
 
   @Column({ type: DataType.STRING, defaultValue: 'pizzas' })
-  category: 'pizzas';
+  category: string;
 }
