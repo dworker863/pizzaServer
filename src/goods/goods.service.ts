@@ -1,3 +1,4 @@
+import { FilesService } from './../files/files.service';
 import { CreateSaladDto } from './dto/create-salad.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
@@ -17,11 +18,12 @@ import { Hot } from './models/hot.model';
 export class GoodsService {
   constructor(
     @InjectModel(Pizza) private pizzaRepository: typeof Pizza,
-    @InjectModel(Salad) private saladRepository: typeof Salad,
     @InjectModel(Snack) private snackRepository: typeof Snack,
+    @InjectModel(Salad) private saladRepository: typeof Salad,
     @InjectModel(Dessert) private dessertRepository: typeof Dessert,
     @InjectModel(Drink) private drinkRepository: typeof Drink,
     @InjectModel(Hot) private hotRepository: typeof Hot,
+    private filesService: FilesService,
   ) {}
 
   async getAllGoods() {
@@ -29,38 +31,67 @@ export class GoodsService {
     const snacks = await this.snackRepository.findAll();
     const salads = await this.saladRepository.findAll();
     const desserts = await this.dessertRepository.findAll();
-    // const drinks = await this.drinkRepository.findAll();
+    const drinks = await this.drinkRepository.findAll();
     const hots = await this.hotRepository.findAll();
-    return { pizzas, snacks, salads, desserts, hots };
+    return { pizzas, snacks, salads, desserts, drinks, hots };
   }
 
-  async createPizza(dto: CreatePizzaDto) {
-    const pizza = await this.pizzaRepository.create(dto);
+  async createPizza(dto: CreatePizzaDto, image: any) {
+    const fileName = await this.filesService.createFile(image);
+    const pizza = await this.pizzaRepository.create({
+      ...dto,
+      image: 'http://localhost:5000/' + fileName,
+    });
     return pizza;
   }
 
-  async createSalad(dto: CreateSaladDto) {
-    const salad = await this.saladRepository.create(dto);
+  async createSalad(dto: CreateSaladDto, image: any) {
+    const fileName = await this.filesService.createFile(image);
+
+    const salad = await this.saladRepository.create({
+      ...dto,
+      image: 'http://localhost:5000/' + fileName,
+    });
     return salad;
   }
 
-  async createSnack(dto: CreateSnackDto) {
-    const snack = await this.snackRepository.create(dto);
+  async createSnack(dto: CreateSnackDto, image: any) {
+    const fileName = await this.filesService.createFile(image);
+
+    const snack = await this.snackRepository.create({
+      ...dto,
+      image: 'http://localhost:5000/' + fileName,
+    });
     return snack;
   }
 
-  async createDessert(dto: CreateDessertDto) {
-    const dessert = await this.dessertRepository.create(dto);
+  async createDessert(dto: CreateDessertDto, image: any) {
+    const fileName = await this.filesService.createFile(image);
+
+    const dessert = await this.dessertRepository.create({
+      ...dto,
+      image: 'http://localhost:5000/' + fileName,
+    });
     return dessert;
   }
 
-  async createDrink(dto: CreateDrinkDto) {
-    const drink = await this.drinkRepository.create(dto);
+  async createDrink(dto: CreateDrinkDto, image: any) {
+    const fileName = await this.filesService.createFile(image);
+
+    const drink = await this.drinkRepository.create({
+      ...dto,
+      image: 'http://localhost:5000/' + fileName,
+    });
     return drink;
   }
 
-  async createHot(dto: CreateHotDto) {
-    const hot = await this.hotRepository.create(dto);
+  async createHot(dto: CreateHotDto, image: any) {
+    const fileName = await this.filesService.createFile(image);
+
+    const hot = await this.hotRepository.create({
+      ...dto,
+      image: 'http://localhost:5000/' + fileName,
+    });
     return hot;
   }
 }

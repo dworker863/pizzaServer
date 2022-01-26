@@ -1,5 +1,6 @@
 export interface IHot {
   name: string;
   description: string;
-  price: string;
+  prices: string[];
+  image: string;
 }

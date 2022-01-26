@@ -14,12 +14,12 @@ export class Drink extends Model<Drink, IDrink> {
   @Column({ type: DataType.STRING, allowNull: false, unique: true })
   name: string;
 
-  @Column({ type: DataType.STRING, allowNull: false })
-  size: string;
+  @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
+  sizes: string[];
+
+  @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
+  prices: string[];
 
   @Column({ type: DataType.STRING, allowNull: false })
-  price: string;
-
-  @Column({ type: DataType.STRING, defaultValue: 'drinks' })
-  category: string;
+  image: string;
 }

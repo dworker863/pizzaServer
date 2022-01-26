@@ -17,12 +17,12 @@ export class Pizza extends Model<Pizza, IPizza> {
   @Column({ type: DataType.STRING, allowNull: false })
   description: string;
 
-  @Column({ type: DataType.STRING, allowNull: false })
-  size: string;
+  @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
+  sizes: string[];
+
+  @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
+  prices: string[];
 
   @Column({ type: DataType.STRING, allowNull: false })
-  price: string;
-
-  @Column({ type: DataType.STRING, defaultValue: 'pizzas' })
-  category: string;
+  image: string;
 }

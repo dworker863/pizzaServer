@@ -11,6 +11,9 @@ import { Snack } from './goods/models/snack.model';
 import { Dessert } from './goods/models/dessert.model';
 import { Drink } from './goods/models/drink.model';
 import { Hot } from './goods/models/hot.model';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   controllers: [],
@@ -18,6 +21,9 @@ import { Hot } from './goods/models/hot.model';
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -32,6 +38,7 @@ import { Hot } from './goods/models/hot.model';
     UsersModule,
     AuthModule,
     GoodsModule,
+    FilesModule,
   ],
 })
 export class AppModule {}

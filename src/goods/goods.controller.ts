@@ -1,5 +1,12 @@
 import { ISnack } from './interfaces/snack.interface';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CreatePizzaDto } from './dto/create-pizza.dto';
 import { CreateSaladDto } from './dto/create-salad.dto';
 import { GoodsService } from './goods.service';
@@ -12,6 +19,7 @@ import { CreateDrinkDto } from './dto/create-drink.dto';
 import { IDrink } from './interfaces/drink.interface';
 import { CreateHotDto } from './dto/create-hot.dto';
 import { IHot } from './interfaces/hot.interface';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('goods')
 export class GoodsController {
@@ -23,32 +31,56 @@ export class GoodsController {
   }
 
   @Post('/pizza')
-  async postPizza(@Body() pizzaDto: CreatePizzaDto): Promise<IPizza> {
-    return this.goodsService.createPizza(pizzaDto);
+  @UseInterceptors(FileInterceptor('image'))
+  async postPizza(
+    @Body() pizzaDto: CreatePizzaDto,
+    @UploadedFile() image,
+  ): Promise<IPizza> {
+    return this.goodsService.createPizza(pizzaDto, image);
   }
 
   @Post('/salad')
-  async postSalad(@Body() saladDto: CreateSaladDto): Promise<ISalad> {
-    return this.goodsService.createSalad(saladDto);
+  @UseInterceptors(FileInterceptor('image'))
+  async postSalad(
+    @Body() saladDto: CreateSaladDto,
+    @UploadedFile() image,
+  ): Promise<ISalad> {
+    return this.goodsService.createSalad(saladDto, image);
   }
 
   @Post('/snack')
-  async postSnack(@Body() snackDto: CreateSnackDto): Promise<ISnack> {
-    return this.goodsService.createSnack(snackDto);
+  @UseInterceptors(FileInterceptor('image'))
+  async postSnack(
+    @Body() snackDto: CreateSnackDto,
+    @UploadedFile() image,
+  ): Promise<ISnack> {
+    return this.goodsService.createSnack(snackDto, image);
   }
 
   @Post('/dessert')
-  async postDessert(@Body() dessertDto: CreateDessertDto): Promise<IDessert> {
-    return this.goodsService.createDessert(dessertDto);
+  @UseInterceptors(FileInterceptor('image'))
+  async postDessert(
+    @Body() dessertDto: CreateDessertDto,
+    @UploadedFile() image,
+  ): Promise<IDessert> {
+    return this.goodsService.createDessert(dessertDto, image);
   }
 
   @Post('/drink')
-  async postDrink(@Body() drinkDto: CreateDrinkDto): Promise<IDrink> {
-    return this.goodsService.createDrink(drinkDto);
+  @UseInterceptors(FileInterceptor('image'))
+  async postDrink(
+    @Body() drinkDto: CreateDrinkDto,
+    @UploadedFile() image,
+  ): Promise<IDrink> {
+    return this.goodsService.createDrink(drinkDto, image);
   }
 
   @Post('/hot')
-  async postHot(@Body() hotDto: CreateHotDto): Promise<IHot> {
-    return this.goodsService.createHot(hotDto);
+  @UseInterceptors(FileInterceptor('image'))
+  async postHot(
+    @Body() hotDto: CreateHotDto,
+    @UploadedFile() image,
+  ): Promise<IHot> {
+    return this.goodsService.createHot(hotDto, image);
   }
 }

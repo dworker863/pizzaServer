@@ -17,9 +17,9 @@ export class Dessert extends Model<Dessert, IDessert> {
   @Column({ type: DataType.STRING, allowNull: false })
   description: string;
 
-  @Column({ type: DataType.STRING, allowNull: false })
-  price: string;
+  @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
+  prices: string[];
 
-  @Column({ type: DataType.STRING, defaultValue: 'desserts' })
-  category: string;
+  @Column({ type: DataType.STRING, allowNull: false })
+  image: string;
 }

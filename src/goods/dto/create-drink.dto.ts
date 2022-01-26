@@ -1,5 +1,5 @@
 export class CreateDrinkDto {
   readonly name: string;
-  readonly size: string;
-  readonly price: string;
+  readonly sizes: string[];
+  readonly prices: string[];
 }

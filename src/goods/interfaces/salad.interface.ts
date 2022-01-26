@@ -1,5 +1,6 @@
 export interface ISalad {
   name: string;
   description: string;
-  price: string;
+  prices: string[];
+  image: string;
 }
