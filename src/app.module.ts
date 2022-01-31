@@ -13,7 +13,9 @@ import { Drink } from './goods/models/drink.model';
 import { Hot } from './goods/models/hot.model';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { CategoriesModule } from './categories/categories.module';
 import * as path from 'path';
+import { Category } from './categories/models/category.model';
 
 @Module({
   controllers: [],
@@ -32,13 +34,14 @@ import * as path from 'path';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Pizza, Salad, Snack, Dessert, Drink, Hot],
+      models: [User, Pizza, Salad, Snack, Dessert, Drink, Hot, Category],
       autoLoadModels: true,
     }),
     UsersModule,
     AuthModule,
     GoodsModule,
     FilesModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {}
